@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
  *
  * @author CltControl
  */
-public class LinkedListDobleCircular<E> {
+public class LinkedListDobleCircular<E> implements Iterable {
 
     private Node<E> first;
     private Node<E> last;
@@ -210,23 +210,24 @@ public class LinkedListDobleCircular<E> {
 //        }
 //        return null;
 //    }
+    @Override
     public IteradorInterface<E> crearIterador() {
         return new Iterador<>(this);
     }
 
     class Iterador<E> implements IteradorInterface<E> {
 
-        Node<E> i;
+        private Node<E> referencia;
 
         public Iterador(LinkedListDobleCircular<E> lldc) {
-            i = (Node<E>) lldc.first;
+            referencia = (Node<E>) lldc.first;
         }
 
         @Override
         public E next() {
-            if (i != null) {
-                E tmp = i.contenido;
-                i = i.siguiente;
+            if (referencia != null) {
+                E tmp = referencia.contenido;
+                referencia = referencia.siguiente;
                 return tmp;
             }
             return null;
@@ -234,9 +235,9 @@ public class LinkedListDobleCircular<E> {
 
         @Override
         public E previous() {
-            if (i != null) {
-                E tmp = i.contenido;
-                i = i.anterior;
+            if (referencia != null) {
+                E tmp = referencia.contenido;
+                referencia = referencia.anterior;
                 return tmp;
             }
             return null;
